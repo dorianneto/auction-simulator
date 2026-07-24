@@ -7,7 +7,7 @@ export interface Impression {
   floorPrice: number; // Minimum CPM
 }
 
-interface DSPBidResponse {
+export interface DSPBidResponse {
   price: number; // CPM
   dspId: string;
 }
