@@ -7,10 +7,9 @@ export interface Impression {
   floorPrice: number; // Minimum CPM
 }
 
-export interface Bid {
-  dspId: string;
+interface DSPBidResponse {
   price: number; // CPM
-  impression: Impression;
+  dspId: string;
 }
 
 export interface DSP {
@@ -19,7 +18,13 @@ export interface DSP {
   budget: number;
   spent: number;
   winCount: number; // Impressions won
-  getBid(impression: Impression): Promise<{ price: number } | null>;
+  getBid(impression: Impression): Promise<DSPBidResponse | null>;
+}
+
+export interface Bid {
+  dspId: string;
+  price: number; // CPM
+  impression: Impression;
 }
 
 export interface AuctionResult {
