@@ -1,4 +1,4 @@
-interface Impression {
+export interface Impression {
   id: string;
   publisherId: string;
   slotSize: "300x250" | "728x90" | "160x600";
@@ -7,13 +7,13 @@ interface Impression {
   floorPrice: number; // Minimum CPM
 }
 
-interface Bid {
+export interface Bid {
   dspId: string;
   price: number; // CPM
   impression: Impression;
 }
 
-interface DSP {
+export interface DSP {
   id: string;
   name: string;
   budget: number;
@@ -22,7 +22,7 @@ interface DSP {
   getBid(impression: Impression): Promise<{ price: number } | null>;
 }
 
-interface AuctionResult {
+export interface AuctionResult {
   impression: Impression;
   winnerDspId: string | null;
   winningBid: number; // Second-price
