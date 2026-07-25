@@ -1,6 +1,6 @@
 import { DSP, DSPBidResponse, Impression } from '../types.js';
 
-class MagniteDSP implements DSP {
+export class MagniteDSP implements DSP {
   id = 'magnite';
   name = 'Magnite';
   budget = 60;

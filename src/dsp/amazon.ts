@@ -1,6 +1,6 @@
 import type { DSP, Impression, DSPBidResponse } from '../types.js';
 
-class AmazonDSP implements DSP {
+export class AmazonDSP implements DSP {
   id = 'amazon';
   name = 'Amazon DSP';
   budget = 70;

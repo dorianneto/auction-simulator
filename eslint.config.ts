@@ -12,7 +12,6 @@ export default defineConfig([
     rules: {
       quotes: ['error', 'single', { avoidEscape: true }],
       eqeqeq: 'error',
-      'no-console': 'warn',
       'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       'prefer-const': 'error',
       'no-var': 'error',

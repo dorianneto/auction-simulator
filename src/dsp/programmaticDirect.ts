@@ -1,6 +1,6 @@
 import type { DSP, Impression, DSPBidResponse } from '../types.js';
 
-class ProgrammaticDirectDSP implements DSP {
+export class ProgrammaticDirectDSP implements DSP {
   id = 'prog-direct';
   name = 'Programmatic Direct';
   budget = 50;
