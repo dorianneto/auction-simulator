@@ -1,8 +1,8 @@
 export interface Impression {
   id: string;
   publisherId: string;
-  slotSize: "300x250" | "728x90" | "160x600";
-  userSegment: "tech" | "sports" | "general" | "finance";
+  slotSize: '300x250' | '728x90' | '160x600';
+  userSegment: 'tech' | 'sports' | 'general' | 'finance';
   location: string;
   floorPrice: number; // Minimum CPM
 }

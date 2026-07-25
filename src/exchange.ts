@@ -1,4 +1,4 @@
-import type { AuctionResult, Impression, DSP } from "./types.js";
+import type { AuctionResult, Impression, DSP } from './types.js';
 
 async function runAuction(
   impression: Impression,
