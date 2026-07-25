@@ -4,18 +4,47 @@ async function runAuction(
   impression: Impression,
   dsps: DSP[],
 ): Promise<AuctionResult> {
-  // 1. Request bids from all DSPs in parallel
-  // 2. Filter valid bids (must meet floor price)
-  // 3. Sort by price descending
-  // 4. Run second-price: winner pays 2nd highest
-  // 5. Return result
+  const bids = dsps.map(async (dsp) => {
+    return await dsp.getBid(impression);
+  });
+
+  const resolvedBids = await Promise.all(bids);
+
+  const validBids = resolvedBids
+    .filter((bid) => bid !== null)
+    .filter((bid) => bid.price >= impression.floorPrice);
+
+  const sortedBids = validBids.sort((a, b) => b.price - a.price);
+
+  const winner = sortedBids[0];
+
+  if (winner === undefined) {
+    throw new Error('No valid bids received for impression: ' + impression.id);
+  }
+
+  const secondPrice = sortedBids[1]?.price
+
+  if (secondPrice === undefined) {
+    throw new Error('No valid bids received for impression: ' + impression.id);
+  }
+
+  return {
+    impression,
+    winnerDspId: winner.dspId,
+    winningBid: secondPrice,
+    timestamp: Date.now()
+  }
 }
 
 export async function simulateAuctions(
   impressions: Impression[],
   dsps: DSP[],
 ): Promise<AuctionResult[]> {
-  // Loop through all impressions, run auction for each
-  // Collect results
-  // Return all results
+  const results: AuctionResult[] = [];
+
+  for (const impression of impressions) {
+    results.push(await runAuction(impression, dsps));
+  }
+
+  return results;
 }
