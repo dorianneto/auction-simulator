@@ -78,3 +78,51 @@ sequenceDiagram
     end
     Sim-->>Idx: AuctionResult[]
 ```
+
+## Timeline example
+
+```
+Timeline (all happens in <100ms):
+
+T=0ms: Page starts loading
+└─ CNN's page has ad slots (sidebars, between paragraphs, etc)
+
+T=50ms: User's browser loads CNN's ad code
+└─ Ad code says: "Hey, I have a 300x250 ad slot available"
+└─ It pings Google Ad Exchange (AdX)
+
+T=51ms: AdX receives bid request
+└─ Request includes:
+    - Ad slot size: 300x250
+    - Page URL: cnn.com/tech/article-xyz
+    - User data: (anonymized) male, age 25-34, interests: tech
+    - User's location: New York
+    - Device: Chrome on Desktop
+
+T=52-90ms: AdX broadcasts bid request to ~20 DSPs
+├─ Google Ads (DSP) -> "I'll pay $3.50 CPM for this"
+│  (They have tech companies as clients who want tech readers)
+├─ The Trade Desk (DSP) -> "I'll pay $2.80 CPM"
+│  (A furniture company retargeting site visitors)
+├─ DV360 (DSP) -> "I'll pay $2.20 CPM"
+│  (Lower priority campaign)
+└─ ... 15 other DSPs respond with bids or pass
+
+T=91ms: AdX runs second-price auction
+├─ Winner: Google Ads ($3.50 bid)
+├─ Second place: The Trade Desk ($2.80 bid)
+├─ Price charged: $2.80 (second price)
+└─ Result: Google Ads wins, pays $2.80 CPM
+
+T=92ms: AdX returns winning ad to CNN
+├─ Ad creative: A Google Pixel phone ad
+├─ Price paid: $2.80
+└─ Ad ID: xyz-123456
+
+T=93-95ms: CNN's page renders
+└─ Pixel phone ad displays in the sidebar
+
+T=96ms: CNN gets paid
+└─ CNN receives: $2.80 / 1000 impressions
+└─ This happens for every impression on their site
+```
